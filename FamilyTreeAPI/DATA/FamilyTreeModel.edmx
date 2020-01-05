@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FamilyTreeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+          <Property Name="BirthDay" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Relationship">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Relationship" Type="varchar(max)" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Relative">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="RelationshipId" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" />
+          <Property Name="RelativeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Relative__Person__276EDEB3">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relative__Relati__286302EC">
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relationship">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relative__Relati__34C8D9D1">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="RelativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyTreeModelStoreContainer">
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relationship" EntityType="Self.Relationship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relative" EntityType="Self.Relative" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Relative__Person__276EDEB3" Association="Self.FK__Relative__Person__276EDEB3">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Relative" EntitySet="Relative" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relative__Relati__286302EC" Association="Self.FK__Relative__Relati__286302EC">
+            <End Role="Relationship" EntitySet="Relationship" />
+            <End Role="Relative" EntitySet="Relative" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relative__Relati__34C8D9D1" Association="Self.FK__Relative__Relati__34C8D9D1">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Relative" EntitySet="Relative" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FamilyTreeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Relatives" Relationship="Self.FK__Relative__Person__276EDEB3" FromRole="Persona" ToRole="Relative" />
+        </EntityType>
+        <EntityType Name="Relationship">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Relationship1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Relative">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="RelationshipId" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <Property Name="RelativeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RelatedTo" Relationship="Self.FK__Relative__Relati__34C8D9D1" FromRole="Relative" ToRole="Persona" />
+          <NavigationProperty Name="Relationship" Relationship="Self.FK__Relative__Relati__286302EC" FromRole="Relative" ToRole="Relationship" />
+        </EntityType>
+        <Association Name="FK__Relative__Person__276EDEB3">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relative__Relati__34C8D9D1">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="RelativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relative__Relati__286302EC">
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="1" />
+          <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relationship">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Relative">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyTreeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Personas" EntityType="Self.Persona" />
+          <EntitySet Name="Relationships" EntityType="Self.Relationship" />
+          <EntitySet Name="Relatives" EntityType="Self.Relative" />
+          <AssociationSet Name="FK__Relative__Person__276EDEB3" Association="Self.FK__Relative__Person__276EDEB3">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Relative" EntitySet="Relatives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relative__Relati__34C8D9D1" Association="Self.FK__Relative__Relati__34C8D9D1">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Relative" EntitySet="Relatives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relative__Relati__286302EC" Association="Self.FK__Relative__Relati__286302EC">
+            <End Role="Relationship" EntitySet="Relationships" />
+            <End Role="Relative" EntitySet="Relatives" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FamilyTreeModelStoreContainer" CdmEntityContainer="FamilyTreeEntities">
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="FamilyTreeModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relationships">
+            <EntityTypeMapping TypeName="FamilyTreeModel.Relationship">
+              <MappingFragment StoreEntitySet="Relationship">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Relationship1" ColumnName="Relationship" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relatives">
+            <EntityTypeMapping TypeName="FamilyTreeModel.Relative">
+              <MappingFragment StoreEntitySet="Relative">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="RelationshipId" ColumnName="RelationshipId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="RelativeId" ColumnName="RelativeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

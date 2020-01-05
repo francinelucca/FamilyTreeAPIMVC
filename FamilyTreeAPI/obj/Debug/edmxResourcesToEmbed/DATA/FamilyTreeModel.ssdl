@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FamilyTreeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+    <Property Name="BirthDay" Type="datetime" Nullable="false" />
+    <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="updatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Relationship">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Relationship" Type="varchar(max)" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="updatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Relative">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonaId" Type="int" Nullable="false" />
+    <Property Name="RelationshipId" Type="int" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="updatedAt" Type="datetime" />
+    <Property Name="RelativeId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Relative__Person__276EDEB3">
+    <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+    <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Relative">
+        <PropertyRef Name="PersonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Relative__Relati__286302EC">
+    <End Role="Relationship" Type="Self.Relationship" Multiplicity="1" />
+    <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Relationship">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Relative">
+        <PropertyRef Name="RelationshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Relative__Relati__34C8D9D1">
+    <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+    <End Role="Relative" Type="Self.Relative" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Relative">
+        <PropertyRef Name="RelativeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FamilyTreeModelStoreContainer">
+    <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Relationship" EntityType="Self.Relationship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Relative" EntityType="Self.Relative" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Relative__Person__276EDEB3" Association="Self.FK__Relative__Person__276EDEB3">
+      <End Role="Persona" EntitySet="Persona" />
+      <End Role="Relative" EntitySet="Relative" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Relative__Relati__286302EC" Association="Self.FK__Relative__Relati__286302EC">
+      <End Role="Relationship" EntitySet="Relationship" />
+      <End Role="Relative" EntitySet="Relative" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Relative__Relati__34C8D9D1" Association="Self.FK__Relative__Relati__34C8D9D1">
+      <End Role="Persona" EntitySet="Persona" />
+      <End Role="Relative" EntitySet="Relative" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

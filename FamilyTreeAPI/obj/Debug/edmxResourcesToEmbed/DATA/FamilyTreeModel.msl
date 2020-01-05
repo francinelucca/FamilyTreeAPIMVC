@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FamilyTreeModelStoreContainer" CdmEntityContainer="FamilyTreeEntities">
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="FamilyTreeModel.Persona">
+        <MappingFragment StoreEntitySet="Persona">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Relationships">
+      <EntityTypeMapping TypeName="FamilyTreeModel.Relationship">
+        <MappingFragment StoreEntitySet="Relationship">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Relationship1" ColumnName="Relationship" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Relatives">
+      <EntityTypeMapping TypeName="FamilyTreeModel.Relative">
+        <MappingFragment StoreEntitySet="Relative">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+          <ScalarProperty Name="RelationshipId" ColumnName="RelationshipId" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+          <ScalarProperty Name="RelativeId" ColumnName="RelativeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
